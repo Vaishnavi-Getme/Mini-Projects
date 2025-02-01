@@ -4,200 +4,178 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory Game</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #4E73DF;
+            --success-color: #1cc88a;
+            --danger-color: #e74a3b;
+            --warning-color: #f6c23e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f8f9fc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
         .game-container {
-            max-width: 400px;
-            margin: 40px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            max-width: 500px;
+            width: 100%;
         }
 
         .game-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+            text-align: center;
+            margin-bottom: 30px;
         }
 
         .game-header h1 {
-            font-weight: 600;
-            font-size: 24px;
-            margin: 0;
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 15px;
         }
 
         .score-board {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
         }
 
         .score, .high-score {
-            margin: 0 10px;
+            text-align: center;
         }
 
         .score-label, .high-score-label {
-            font-size: 14px;
-            color: #666;
+            font-size: 0.9rem;
+            color: #858796;
+            margin-bottom: 5px;
         }
 
         .score-value, .high-score-value {
-            font-size: 18px;
-            font-weight: 500;
-            color: #333;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
         }
 
-        .game-board {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .game-btn {
-            width: 100%;
-            height: 100px;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            color: #fff;
-            transition: background-color 0.3s;
-            border-radius: 10px;
+        .controls {
             display: flex;
             justify-content: center;
-            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
-        .game-btn.green {
-            background-color: #34C759;
-        }
-
-        .game-btn.red {
-            background-color: #FF3B3F;
-        }
-
-        .game-btn.yellow {
-            background-color: #F7DC6F;
-        }
-
-        .game-btn.blue {
-            background-color: #4E73DF;
-        }
-
-        .btn-content {
-            font-size: 24px;
-        }
-
-        .game-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .control-group {
-            display: flex;
-            align-items: center;
-        }
-
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: 0.4s;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: 0.4s;
-        }
-
-        input:checked + .slider {
-            background-color: #2196F3;
-        }
-
-        input:focus + .slider {
-            box-shadow: 0 0 1px #2196F3;
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(26px);
-        }
-
-        .control-label {
-            margin-left: 10px;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .start-btn {
-            background-color: #4CAF50;
-            color: #fff;
+        .control-btn {
             padding: 10px 20px;
             border: none;
-            outline: none;
-            cursor: pointer;
-            font-size: 16px;
             border-radius: 5px;
-            transition: all 0.3s;
+            background: var(--primary-color);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .start-btn:hover {
-            background-color: #3e8e41;
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78, 115, 223, 0.3);
         }
 
-        .game-status {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .control-btn.start {
+            background: var(--success-color);
         }
 
-        .round {
-            margin-right: 20px;
+        .control-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
-        .round-label, .message {
-            font-size: 14px;
-            color: #666;
+        .simon-board {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 0 auto;
+            max-width: 400px;
         }
 
-        .round-value {
-            font-size: 18px;
-            font-weight: 500;
-            color: #333;
+        .simon-button {
+            aspect-ratio: 1;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: filter 0.3s;
+        }
+
+        .simon-button:hover {
+            filter: brightness(1.1);
+        }
+
+        .simon-button[data-color="green"] {
+            background: var(--success-color);
+        }
+
+        .simon-button[data-color="red"] {
+            background: var(--danger-color);
+        }
+
+        .simon-button[data-color="yellow"] {
+            background: var(--warning-color);
+        }
+
+        .simon-button[data-color="blue"] {
+            background: var(--primary-color);
+        }
+
+        .simon-button.active {
+            filter: brightness(1.5);
+        }
+
+        .simon-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 480px) {
+            .game-container {
+                padding: 20px;
+            }
+
+            .game-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .score-board {
+                gap: 20px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .control-btn {
+                width: 100%;
+                max-width: 200px;
+            }
         }
     </style>
 </head>
@@ -207,213 +185,147 @@
             <h1>Memory Game</h1>
             <div class="score-board">
                 <div class="score">
-                    <span class="score-label">Score</span>
-                    <span class="score-value" id="score">0</span>
+                    <div class="score-label">Score</div>
+                    <div class="score-value" id="score">0</div>
                 </div>
                 <div class="high-score">
-                    <span class="score-label">Best</span>
-                    <span class="score-value" id="high-score">0</span>
+                    <div class="high-score-label">High Score</div>
+                    <div class="high-score-value" id="high-score">0</div>
                 </div>
+            </div>
+            <div class="controls">
+                <button id="start" class="control-btn start">Start Game</button>
+                <button id="reset" class="control-btn">Reset</button>
             </div>
         </div>
 
-        <div class="game-board" id="simon-board">
-            <button class="game-btn green" data-color="green">
-                <div class="btn-content">
-                    <i class="fas fa-leaf"></i>
-                </div>
-            </button>
-            <button class="game-btn red" data-color="red">
-                <div class="btn-content">
-                    <i class="fas fa-heart"></i>
-                </div>
-            </button>
-            <button class="game-btn yellow" data-color="yellow">
-                <div class="btn-content">
-                    <i class="fas fa-sun"></i>
-                </div>
-            </button>
-            <button class="game-btn blue" data-color="blue">
-                <div class="btn-content">
-                    <i class="fas fa-water"></i>
-                </div>
-            </button>
-        </div>
-
-        <div class="game-controls">
-            <div class="control-group">
-                <label class="switch">
-                    <input type="checkbox" id="strict-mode">
-                    <span class="slider"></span>
-                </label>
-                <span class="control-label">Strict Mode</span>
-            </div>
-            
-            <button class="start-btn" id="start">
-                <i class="fas fa-play"></i>
-                Start Game
-            </button>
-
-            <div class="control-group">
-                <label class="switch">
-                    <input type="checkbox" id="power">
-                    <span class="slider"></span>
-                </label>
-                <span class="control-label">Power</span>
-            </div>
-        </div>
-
-        <div class="game-status">
-            <div class="round">
-                <span class="round-label">Round</span>
-                <span class="round-value" id="round">1</span>
-            </div>
-            <div class="message" id="message">Press Start to begin!</div>
+        <div class="simon-board" id="simon-board">
+            <button class="simon-button" data-color="green"></button>
+            <button class="simon-button" data-color="red"></button>
+            <button class="simon-button" data-color="yellow"></button>
+            <button class="simon-button" data-color="blue"></button>
         </div>
     </div>
-    <script>
-        let strictMode = false;
-        let powerOn = false;
-        const sequence = [];
-        let userSequence = [];
-        let level = 1;
-        let highScore = localStorage.getItem('simonHighScore') || 0;
-        document.getElementById('high-score').textContent = highScore;
 
-        const levelCount = document.querySelector('.round-value');
+    <script>
+        const buttons = document.querySelectorAll('.simon-button');
+        const startButton = document.getElementById('start');
+        const resetButton = document.getElementById('reset');
+        const scoreDisplay = document.getElementById('score');
+        const highScoreDisplay = document.getElementById('high-score');
         const simonBoard = document.getElementById('simon-board');
 
+        let sequence = [];
+        let playerSequence = [];
+        let score = 0;
+        let highScore = 0;
+        let isPlaying = false;
+
         function startGame() {
-            sequence.length = 0;
-            userSequence.length = 0;
-            level = 1;
-            levelCount.textContent = level;
+            sequence = [];
+            playerSequence = [];
+            score = 0;
+            isPlaying = true;
+            updateScore();
             nextRound();
-            document.getElementById("start").disabled = false;
         }
 
         function nextRound() {
-            addToSequence();
-            setTimeout(playSequence, 1000);
-        }
-
-        function addToSequence() {
-            const randomColor = Math.floor(Math.random() * 4) + 1;
-            sequence.push(randomColor);
+            playerSequence = [];
+            sequence.push(Math.floor(Math.random() * 4));
+            disableButtons();
+            setTimeout(() => {
+                playSequence();
+            }, 1000);
         }
 
         function playSequence() {
-            disableButtons();
             let i = 0;
-            const intervalId = setInterval(() => {
+            const interval = setInterval(() => {
                 highlightButton(sequence[i]);
                 i++;
                 if (i >= sequence.length) {
-                    clearInterval(intervalId);
-                    setTimeout(enableButtons, 1000);
+                    clearInterval(interval);
+                    enableButtons();
                 }
             }, 800);
         }
 
-        function handleClick(button) {
-            if (powerOn) {
-                const userColor = button.getAttribute("data-color");
-                userSequence.push(userColor);
-                highlightButton(userColor);
+        function highlightButton(index) {
+            const button = buttons[index];
+            button.classList.add('active');
+            setTimeout(() => {
+                button.classList.remove('active');
+            }, 400);
+        }
 
-                if (!checkSequence()) {
-                    wrongGuess();
-                    if (strictMode) {
-                        setTimeout(() => {
-                            alert(`Game over! Your score: ${level-1}\nHigh Score: ${highScore}`);
-                            togglePower();
-                            startGame();
-                        }, 1000);
-                    } else {
-                        setTimeout(() => {
-                            alert('Wrong sequence! Try again.');
-                            userSequence = [];
-                            playSequence();
-                        }, 1000);
-                    }
-                } else if (userSequence.length === sequence.length) {
-                    userSequence = [];
-                    level++;
-                    if (level - 1 > highScore) {
-                        highScore = level - 1;
-                        localStorage.setItem('simonHighScore', highScore);
-                        document.getElementById('high-score').textContent = highScore;
-                    }
-                    levelCount.textContent = level;
-                    setTimeout(nextRound, 1000);
-                }
+        function handleClick(index) {
+            if (!isPlaying) return;
+
+            playerSequence.push(index);
+            highlightButton(index);
+
+            if (playerSequence[playerSequence.length - 1] !== sequence[playerSequence.length - 1]) {
+                gameOver();
+                return;
+            }
+
+            if (playerSequence.length === sequence.length) {
+                score++;
+                updateScore();
+                disableButtons();
+                setTimeout(() => {
+                    nextRound();
+                }, 1000);
             }
         }
 
-        function wrongGuess() {
-            simonBoard.classList.add('wrong-guess');
-            setTimeout(() => {
-                simonBoard.classList.remove('wrong-guess');
-            }, 500);
+        function gameOver() {
+            isPlaying = false;
+            if (score > highScore) {
+                highScore = score;
+                highScoreDisplay.textContent = highScore;
+            }
+            alert(`Game Over! Score: ${score}`);
+            startButton.disabled = false;
         }
 
-        function checkSequence() {
-            return userSequence.every((color, i) => color === getButtonColor(sequence[i]));
-        }
-
-        function highlightButton(color) {
-            const button = document.querySelector(`[data-color="${color}"]`);
-            const colors = {
-                '1': 'green',
-                '2': 'red',
-                '3': 'yellow',
-                '4': 'blue'
-            };
-            button.style.backgroundColor = colors[color];
-            setTimeout(() => {
-                button.removeAttribute('style');
-            }, 300);
-        }
-
-        function getButtonColor(index) {
-            const buttons = document.querySelectorAll('.game-btn');
-            return buttons[index - 1].getAttribute('data-color');
+        function updateScore() {
+            scoreDisplay.textContent = score;
         }
 
         function enableButtons() {
-            const buttons = document.querySelectorAll('.game-btn');
-            buttons.forEach(button => button.removeAttribute('disabled'));
+            buttons.forEach(button => button.disabled = false);
         }
 
         function disableButtons() {
-            const buttons = document.querySelectorAll('.game-btn');
-            buttons.forEach(button => button.setAttribute('disabled', 'true'));
+            buttons.forEach(button => button.disabled = true);
         }
 
-        function toggleStrictMode() {
-            strictMode = !strictMode;
+        function resetGame() {
+            sequence = [];
+            playerSequence = [];
+            score = 0;
+            isPlaying = false;
+            updateScore();
+            startButton.disabled = false;
+            enableButtons();
         }
 
-        function togglePower() {
-            powerOn = !powerOn;
-            if (powerOn) {
-                startGame();
-                enableButtons();
-            } else {
-                userSequence = [];
-                disableButtons();
-                levelCount.textContent = '-';
-            }
-        }
-
-        document.getElementById('start').addEventListener('click', startGame);
-        document.getElementById('strict-mode').addEventListener('change', toggleStrictMode);
-        document.getElementById('power').addEventListener('change', togglePower);
-        simonBoard.addEventListener('click', (e) => {
-            if (e.target.classList.contains('game-btn')) {
-                handleClick(e.target);
-            }
+        // Event Listeners
+        startButton.addEventListener('click', () => {
+            startButton.disabled = true;
+            startGame();
         });
+
+        resetButton.addEventListener('click', resetGame);
+
+        buttons.forEach((button, index) => {
+            button.addEventListener('click', () => handleClick(index));
+        });
+
+        // Initialize
+        disableButtons();
     </script>
 </body>
 </html>
