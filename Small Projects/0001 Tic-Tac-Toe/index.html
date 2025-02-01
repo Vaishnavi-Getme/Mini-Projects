@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1>Tic Tac Toe</h1>
+            <div class="player-info">
+                <div class="player player-x active">
+                    <i class="fas fa-times"></i>
+                    <span>Player X</span>
+                </div>
+                <div class="player player-o">
+                    <i class="fas fa-circle"></i>
+                    <span>Player O</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-board">
+            <div class="board-grid">
+                <button class="box" data-index="0"></button>
+                <button class="box" data-index="1"></button>
+                <button class="box" data-index="2"></button>
+                <button class="box" data-index="3"></button>
+                <button class="box" data-index="4"></button>
+                <button class="box" data-index="5"></button>
+                <button class="box" data-index="6"></button>
+                <button class="box" data-index="7"></button>
+                <button class="box" data-index="8"></button>
+            </div>
+        </div>
+
+        <div class="game-controls">
+            <button id="reset-btn" class="control-btn">
+                <i class="fas fa-redo"></i>
+                Reset Board
+            </button>
+        </div>
+
+        <div class="game-status">
+            <div class="status-message">
+                <span id="status">Player X's turn</span>
+            </div>
+            <div class="score-board">
+                <div class="score">
+                    <span class="label">X Wins</span>
+                    <span class="value" id="x-score">0</span>
+                </div>
+                <div class="score">
+                    <span class="label">Draws</span>
+                    <span class="value" id="draws">0</span>
+                </div>
+                <div class="score">
+                    <span class="label">O Wins</span>
+                    <span class="value" id="o-score">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal hide" id="winner-modal">
+            <div class="modal-content">
+                <div class="winner-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h2 id="winner-message">Player X Wins!</h2>
+                <button id="new-game" class="control-btn primary">
+                    <i class="fas fa-play"></i>
+                    New Game
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

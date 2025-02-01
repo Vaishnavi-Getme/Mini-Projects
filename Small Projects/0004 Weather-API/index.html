@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="weather-card">
+            <div class="search-section">
+                <h1>Weather Forecast</h1>
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input 
+                        type="text" 
+                        id="city" 
+                        placeholder="Enter city name..."
+                        autocomplete="off"
+                    >
+                    <button type="button" id="btn">
+                        <i class="fas fa-location-arrow"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="weather-info hide">
+                <div class="weather-main">
+                    <div class="weather-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <div class="temperature">
+                        <span class="temp-value">--</span>
+                        <span class="temp-unit">°C</span>
+                    </div>
+                    <div class="weather-description">
+                        <span id="weather">--</span>
+                    </div>
+                </div>
+
+                <div class="weather-details">
+                    <div class="detail-item">
+                        <i class="fas fa-wind"></i>
+                        <div class="detail-info">
+                            <span class="detail-value" id="wind">--</span>
+                            <span class="detail-label">Wind Speed</span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-water"></i>
+                        <div class="detail-info">
+                            <span class="detail-value" id="humidity">--</span>
+                            <span class="detail-label">Humidity</span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                        <div class="detail-info">
+                            <span class="detail-value" id="pressure">--</span>
+                            <span class="detail-label">Pressure</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="error-message hide">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>City not found. Please try again.</p>
+            </div>
+
+            <div class="loader hide">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
